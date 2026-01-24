@@ -1,39 +1,35 @@
 "use client";
 
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { auth } from "./firebase";
+import { useAuth } from "./contexts/AuthContext";
+import Dashboard from "./components/Dashboard";
+import LoginForm from "./components/LoginForm";
 
 export default function Home() {
-  const handleGoogleLogin = async () => {
-    try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      console.log("Signed in user:", result.user);
-      alert(`Welcome, ${result.user.displayName}`);
-    } catch (error) {
-      console.error("Login error:", error);
-      alert("Google sign-in failed");
-    }
-  };
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-white">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </main>
+    );
+  }
+
+  if (user) {
+    return <Dashboard />;
+  }
 
   return (
-    <main className="min-h-screen flex flex-col items-center bg-white pt-20">
-
+    <main className="min-h-screen flex flex-col items-center justify-center bg-white px-4">
       {/* Large Logo */}
       <img
         src="/logo.png"
         alt="Card Compass"
-        className="w-[820px] max-w-[95%]"
+        className="w-[820px] max-w-[95%] mb-12"
       />
 
-      {/* Google Sign In Button */}
-      <button
-        onClick={handleGoogleLogin}
-        className="bg-blue-600 text-white px-6 py-2.5 rounded-lg text-xl font-medium hover:bg-blue-700 transition shadow-md -mt-25"
-      >
-        Sign in with Google
-      </button>
-
+      {/* Login Form */}
+      <LoginForm />
     </main>
   );
 }
