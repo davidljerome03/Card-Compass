@@ -1,0 +1,112 @@
+/* Component Styles */
+
+/* Card Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.card {
+    border-radius: 1rem;
+    padding: 1.5rem;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 200px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.cardTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.cardBank {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cardType {
+    font-size: 0.75rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.25rem 0.5rem;
+    border-radius: 99px;
+    backdrop-filter: blur(4px);
+}
+
+.cardNumber {
+    font-family: monospace;
+    font-size: 1.25rem;
+    letter-spacing: 2px;
+    margin: 1.5rem 0;
+}
+
+.cardBottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.cardName {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.cardRewards {
+    font-size: 0.7rem;
+    max-width: 70%;
+    opacity: 0.9;
+    line-height: 1.2;
+}
+
+/* Location Tracker */
+.locationPanel {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.locationIcon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #60a5fa;
+}
+
+.locationInfo {
+    flex: 1;
+}
+
+.locationLabel {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    margin-bottom: 0.25rem;
+}
+
+.locationValue {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+}
