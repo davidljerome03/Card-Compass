@@ -1,6 +1,6 @@
 import json
 import os
-from backend.tools.plaid_tool import PlaidWalletTool
+from backend.tools.plaid_tools import PlaidWalletTool
 
 class CardPickerAgent:
     def __init__(self):
@@ -9,11 +9,14 @@ class CardPickerAgent:
         
         # Load the Knowledge Base (Rewards Rules)
         db_path = os.path.join(os.path.dirname(__file__), '../data/rewards_db.json')
+        abs_path = os.path.abspath(db_path)
+        print(f"DEBUG: Looking for DB at: {abs_path}")
         try:
-            with open(db_path, 'r') as f:
+            with open(abs_path, 'r') as f:
                 self.rewards_db = json.load(f)
+            print(f"INFO: Rewards DB loaded successfully. Keys: {list(self.rewards_db.keys())}")
         except FileNotFoundError:
-            print("⚠️ Rewards DB not found. Agent is flying blind.")
+            print(f"⚠️ Rewards DB not found at {abs_path}. Agent is flying blind.")
             self.rewards_db = {}
 
     def get_best_card(self, access_token, category):
@@ -23,6 +26,7 @@ class CardPickerAgent:
         """
         # 1. Ask Tool for the user's wallet
         card_names = self.plaid_tool.fetch_credit_cards(access_token)
+        print(f"DEBUG: CardPicker fetched: {card_names}")
         
         if not card_names:
             return {"recommended_card": "Debit Card", "reason": "No credit cards found."}
@@ -31,12 +35,16 @@ class CardPickerAgent:
         user_wallet = []
         for name in card_names:
             db_key = self._match_card_to_db(name)
+            print(f"DEBUG: Matching '{name}' -> {db_key}")
             if db_key:
                 user_wallet.append(db_key)
+
+        print(f"DEBUG: User Wallet Keys: {user_wallet}")
 
         if not user_wallet:
             return {
                 "recommended_card": "Debit Card", 
+                "multiplier": 0,
                 "reason": f"Cards found ({len(card_names)}) but none matched our rewards database."
             }
 
@@ -55,6 +63,13 @@ class CardPickerAgent:
                 highest_multiplier = multiplier
                 best_card = card_data
 
+        if not best_card:
+             return {
+                "recommended_card": "Debit Card",
+                "multiplier": 1.0,
+                "reason": "No optimal card found."
+            }
+
         return {
             "recommended_card": best_card["name"],
             "multiplier": highest_multiplier,
@@ -69,11 +84,27 @@ class CardPickerAgent:
         
         # Capital One Matches (Specific to your wallet)
         if "capital one" in n:
-            if "savor" in n: return "capital_one_savor_one"
-            if "venture x" in n: return "capital_one_venture_x"
-            if "venture" in n: return "capital_one_venture"
-            if "quicksilver" in n: return "capital_one_quicksilver"
-            if "platinum" in n: return "capital_one_platinum"
+            if "savor" in n:
+                 if "student" in n: return "capital_one_savor_student"
+                 if "one" in n: return "capital_one_savor_one"
+                 return "capital_one_savor" # Legacy Savor or default
+            
+            if "venture" in n:
+                if "x" in n: return "capital_one_venture_x"
+                if "one" in n: return "capital_one_venture_one"
+                return "capital_one_venture"
+            
+            if "quicksilver" in n:
+                if "one" in n: return "capital_one_quicksilver_one"
+                if "student" in n: return "capital_one_quicksilver_student"
+                if "secured" in n: return "capital_one_quicksilver_secured"
+                return "capital_one_quicksilver"
+                
+            if "platinum" in n:
+                if "secured" in n: return "capital_one_platinum_secured"
+                return "capital_one_platinum"
+            
+            if "spark" in n: return "capital_one_spark_cash" # Assuming you might add this
 
         # Common Chase Matches
         if "sapphire preferred" in n: return "chase_sapphire_preferred"

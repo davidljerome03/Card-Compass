@@ -2,7 +2,11 @@ import os
 import json
 import asyncio
 import logging
+import sys
 from typing import List, Optional
+# Ensure we can import from backend root
+sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))
+
 from dotenv import load_dotenv
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,7 +25,12 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Load environment variables
-load_dotenv()
+load_dotenv() # Load root .env
+# Also load agents .env if it exists (for Maps Key)
+agents_env = os.path.join(os.path.dirname(__file__), '../../backend/agents/.env')
+if os.path.exists(agents_env):
+    load_dotenv(agents_env)
+    logger.info(f"Loaded additional env from {agents_env}")
 
 PLAID_CLIENT_ID = os.getenv("PLAID_CLIENT_ID")
 PLAID_SECRET = os.getenv("PLAID_SECRET")
@@ -187,6 +196,10 @@ def logout():
 
 # --- WebSocket & Agents ---
 
+# Initialize Orchestrator
+from backend.agents.orchestrator import OrchestratorAgent
+orchestrator = OrchestratorAgent()
+
 @app.websocket("/ws/location")
 async def websocket_endpoint(websocket: WebSocket):
     await manager.connect(websocket)
@@ -194,33 +207,26 @@ async def websocket_endpoint(websocket: WebSocket):
         while True:
             data = await websocket.receive_text()
             location_data = json.loads(data)
-            print(f"Received location: {location_data}")
+            # print(f"Received location: {location_data}") # noisy
             
-            # Simulate Processing Delay
-            await asyncio.sleep(1) 
+            # Orchestrator decides what to do
+            # We need to pass the access token context so it can fetch cards if needed
+            ctx = {
+                "lat": location_data.get('latitude'),
+                "lng": location_data.get('longitude'),
+                "access_token": get_access_token()
+            }
             
-            # Real Orchestrator Logic
-            # Reuse logic to get cards
-            current_token = get_access_token()
-            current_cards = []
-            if current_token:
-                 # Simplified fetch for brevity/safety - in real code abstract this
-                 pass 
-            
-            # Use mock cards if fetch needs refactoring, or just pass empty for now
-            # The orchestrator handles the logic
-            
-            from agents.orchestrator.orchestrator import orchestrator
-            # Note: We aren't passing real cards here effectively in this snippet update
-            # but getting the flow working is priority.
-            
-            result = await orchestrator.process_location(
-                location_data.get('latitude'), 
-                location_data.get('longitude'),
-                [] 
-            )
-            
-            await manager.send_personal_message(json.dumps(result), websocket)
+            try:
+                decision = await orchestrator.perceive(ctx)
+                
+                if decision:
+                    # If the agent has something to say, send it to the frontend
+                    await manager.send_personal_message(json.dumps(decision), websocket)
+            except Exception as e:
+                logger.error(f"Error in Orchestrator logic: {e}")
+                # Don't crash the websocket, just log and continue
+
             
     except WebSocketDisconnect:
         manager.disconnect(websocket)

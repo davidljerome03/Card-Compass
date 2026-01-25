@@ -1,0 +1,58 @@
+Google Maps MCP Server running on stdio
+Google Maps MCP Server running on stdio
+Loaded agents env from backend\agents\.env
+Initialize Locator Agent...
+DEBUG: Configured Maps MCP with Key: AIzaSyBETy...
+
+Testing Agent with Lat: 29.63186983031408, Lng: -82.37884958371201
+DEBUG: LocatorAgent.get_location_context received Lat: 29.63186983031408, Lng: -82.37884958371201
+DEBUG: MCP Tool search_nearby called with Lat: 29.63186983031408, Lng: -82.37884958371201, Radius: 40
+DEBUG: RAW SEARCH RESPONSE: {
+  "places": [
+    {
+      "name": "Undefined",
+      "formatted_address": "35 King William St, Hamilton, ON L8R 1A1, Canada",
+      "location": {
+        "lat": 43.2574358,
+        "lng": -79.867593
+      },
+      "place_id": "ChIJgQzqB6ibLIgRpYxH9dh5JOg",
+      "rating": 4.5,
+      "types": [
+        "restaurant",
+        "bar",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ]
+    }
+  ]
+}...
+DEBUG: Raw Reverse Geo Response: {
+  "formatted_address": "3771 SW 21st Ln, Gainesville, FL 32607, USA",
+  "place_id": "ChIJz7lslTCj6IgRx6TDYLiaN-w",
+  "address_components": [
+    {
+      "long_name": "3771",
+      "short_name": "3771",
+      "types": [
+        "street_number"
+      ]
+    },
+    {
+      "long_name": "Southwest 21st Lane",
+      "short_name": "SW 21st Ln",
+      "types": [
+        "route"
+      ]
+    },
+    {
+      "long_name": "Gainesville",
+      "short_name": "Gainesville",
+      "types": [
+        "locality"...
+DEBUG: Nearby Search hit business: Undefined
+DEBUG: Final Location Decision: 35 King William St (DINING) from nearby_search
+
+--- Agent Result ---
+{'status': 'success', 'name': '35 King William St', 'raw_type': 'restaurant', 'card_category': 'DINING', 'is_spending_location': True}

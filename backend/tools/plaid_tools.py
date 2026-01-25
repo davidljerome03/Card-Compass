@@ -28,7 +28,9 @@ class PlaidWalletTool:
             cards = []
             for acc in response['accounts']:
                 if str(acc.type) == "credit":
-                    cards.append(acc.official_name or acc.name)
+                    # Prefer the user-friendly name (e.g. 'Capital One Venture') over official_name
+                    # because official_name is often generic in Sandbox (e.g. 'Plaid Credit Card')
+                    cards.append(acc.name or acc.official_name)
             return cards
 
         except plaid.ApiException as e:

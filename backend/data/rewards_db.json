@@ -1,0 +1,93 @@
+{
+    "capital_one_savor": {
+        "name": "Savor Cash Rewards",
+        "rewards": {
+            "DINING": 4.0,
+            "GROCERY": 3.0,
+            "ENTERTAINMENT": 4.0,
+            "STREAMING": 4.0,
+            "OTHER": 1.0
+        }
+    },
+    "capital_one_savor_one": {
+        "name": "SavorOne Rewards",
+        "rewards": {
+            "DINING": 3.0,
+            "GROCERY": 3.0,
+            "ENTERTAINMENT": 3.0,
+            "STREAMING": 3.0,
+            "OTHER": 1.0
+        }
+    },
+    "capital_one_savor_student": {
+        "name": "SavorOne Student Cash Rewards",
+        "rewards": {
+            "DINING": 3.0,
+            "GROCERY": 3.0,
+            "ENTERTAINMENT": 3.0,
+            "STREAMING": 3.0,
+            "OTHER": 1.0
+        }
+    },
+    "capital_one_venture_x": {
+        "name": "Venture X Rewards",
+        "rewards": {
+            "TRAVEL": 10.0,
+            "HOTEL": 10.0,
+            "FLIGHT": 5.0,
+            "OTHER": 2.0
+        }
+    },
+    "capital_one_venture": {
+        "name": "Venture Rewards",
+        "rewards": {
+            "TRAVEL": 5.0,
+            "HOTEL": 5.0,
+            "OTHER": 2.0
+        }
+    },
+    "capital_one_venture_one": {
+        "name": "VentureOne Rewards",
+        "rewards": {
+            "TRAVEL": 5.0,
+            "HOTEL": 5.0,
+            "OTHER": 1.25
+        }
+    },
+    "capital_one_quicksilver": {
+        "name": "Quicksilver Cash Rewards",
+        "rewards": {
+            "OTHER": 1.5
+        }
+    },
+    "capital_one_quicksilver_one": {
+        "name": "QuicksilverOne Cash Rewards",
+        "rewards": {
+            "OTHER": 1.5
+        }
+    },
+    "capital_one_quicksilver_student": {
+        "name": "Quicksilver Student Cash Rewards",
+        "rewards": {
+            "OTHER": 1.5
+        }
+    },
+    "capital_one_quicksilver_secured": {
+        "name": "Quicksilver Secured Cash Rewards",
+        "rewards": {
+            "OTHER": 1.5
+        }
+    },
+    "capital_one_platinum": {
+        "name": "Platinum Mastercard",
+        "rewards": {
+            "OTHER": 0.0
+        }
+    },
+    "capital_one_platinum_secured": {
+        "name": "Platinum Secured",
+        "rewards": {
+            "OTHER": 0.0
+        }
+    }
+}

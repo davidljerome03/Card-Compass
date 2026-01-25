@@ -1,0 +1,52 @@
+Google Maps MCP Server running on stdio
+Loaded agents env from backend\agents\.env
+Initialize Locator Agent...
+DEBUG: Configured Maps MCP with Key: AIzaSyBETy...
+
+Testing Agent with Lat: 29.63186983031408, Lng: -82.37884958371201
+DEBUG: LocatorAgent.get_location_context received Lat: 29.63186983031408, Lng: -82.37884958371201
+DEBUG: MCP Tool search_nearby called with Lat: 29.63186983031408, Lng: -82.37884958371201, Radius: 50
+DEBUG: Calling maps_search_places with args: {'keyword': 'establishment', 'location': {'latitude': 29.63186983031408, 'longitude': -82.37884958371201}, 'rankBy': 'distance', 'language': 'en'}
+DEBUG: RAW SEARCH RESPONSE: {
+  "places": [
+    {
+      "name": "Undefined",
+      "formatted_address": "35 King William St, Hamilton, ON L8R 1A1, Canada",
+      "location": {
+        "lat": 43.2574358,
+        "lng": -79.867593
+      },
+      "place_id": "ChIJgQzqB6ibLIgRpYxH9dh5JOg",
+      "rating": 4.5,
+      "types": [
+        "restaurant",
+        "bar",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ]
+    }
+  ]
+}...
+DEBUG: Scanning result: Undefined | Types: {'food', 'restaurant', 'point_of_interest', 'establishment', 'bar'}
+Traceback (most recent call last):
+  File "G:\Card-Compass-1\test_agent_manual.py", line 39, in <module>
+    asyncio.run(test())
+  File "G:\Users\david\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "G:\Users\david\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\Users\david\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "G:\Card-Compass-1\test_agent_manual.py", line 34, in test
+    context = await agent.get_location_context(lat, lng)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\Card-Compass-1\backend\agents\locator_agent.py", line 50, in get_location_context
+    print(f"DEBUG: \U0001f3af SNAP! Upgraded from Address to Business: {name}")
+  File "G:\Users\david\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f3af' in position 7: character maps to <undefined>
