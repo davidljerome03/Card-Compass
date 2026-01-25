@@ -1,0 +1,101 @@
+{
+  "cards": [
+    {
+      "name": "Quicksilver Cash Rewards",
+      "type": "Cash Back",
+      "annualFee": "$0",
+      "rewards": {
+        "cashBackEveryday": "Unlimited 1.5% cash back on all purchases",
+        "bonusCategories": {
+          "hotelsRentalCarsTravel": "5% cash back through Capital One Travel"
+        }
+      },
+      "bonusOffer": "Earn a one-time $200 cash bonus after spending $500 within 3 months of account opening",
+      "notes": "No rotating categories or limits on earning"
+    },
+    {
+      "name": "QuicksilverOne Rewards",
+      "type": "Cash Back",
+      "annualFee": "$39",
+      "rewards": {
+        "cashBackEveryday": "Unlimited 1.5% cash back on all purchases",
+        "bonusCategories": {
+          "hotelsRentalCarsTravel": "5% cash back through Capital One Travel"
+        }
+      },
+      "bonusOffer": "No current bonus offer indicated",
+      "notes": "Build credit with responsible use"
+    },
+    {
+      "name": "Quicksilver Secured Rewards",
+      "type": "Cash Back",
+      "annualFee": "$0",
+      "rewards": {
+        "cashBackEveryday": "Unlimited 1.5% cash back on all purchases"
+      },
+      "bonusOffer": "None indicated",
+      "notes": "Requires refundable security deposit"
+    },
+    {
+      "name": "Savor Cash Rewards",
+      "type": "Cash Back",
+      "annualFee": "$0",
+      "rewards": {
+        "cashBackDiningGroceriesEntertainmentStreaming": "3% cash back",
+        "cashBackHotelsRentalCarsTravel": "5% cash back through Capital One Travel",
+        "cashBackEntertainmentPlatform": "8% cash back on Capital One Entertainment purchases",
+        "otherPurchases": "1% cash back"
+      },
+      "bonusOffer": "Earn a one-time $200 cash bonus after spending $500 within 3 months of account opening",
+      "notes": "Rewards don’t expire for the life of the account"
+    },
+    {
+      "name": "SavorOne Rewards",
+      "type": "Cash Back",
+      "annualFee": "$0 or $39 (varies by version)",
+      "rewards": {
+        "cashBackDiningGroceriesEntertainmentStreaming": "3% cash back",
+        "cashBackHotelsRentalCarsTravel": "5% cash back through Capital One Travel",
+        "cashBackEntertainmentPlatform": "8% cash back on Capital One Entertainment purchases",
+        "otherPurchases": "1% cash back"
+      },
+      "bonusOffer": "May include sign-up bonus (varies)",
+      "notes": "Offers similar rewards in a no-annual-fee structure"
+    },
+    {
+      "name": "Venture Rewards",
+      "type": "Travel Miles",
+      "annualFee": "$95",
+      "rewards": {
+        "milesEveryPurchase": "2X miles per dollar on every purchase",
+        "milesHotelsRentalCarsTravel": "5X miles per dollar on hotels, vacation rentals, rental cars through Capital One Travel",
+        "milesEntertainmentPlatform": "5X miles per dollar on Capital One Entertainment purchases"
+      },
+      "bonusOffer": "Earn bonus miles after meeting spending requirement within first months",
+      "notes": "Good travel flexibility and redemption options"
+    },
+    {
+      "name": "VentureOne Rewards",
+      "type": "Travel Miles",
+      "annualFee": "$0",
+      "rewards": {
+        "milesEveryPurchase": "1.25X miles per dollar on all purchases",
+        "milesHotelsRentalCarsTravel": "5X miles per dollar on hotels, vacation rentals and rental cars booked through Capital One Travel"
+      },
+      "bonusOffer": "Earn bonus miles on new purchases within 3 months of account opening",
+      "notes": "Entry-level travel rewards card"
+    },
+    {
+      "name": "Venture X Rewards",
+      "type": "Travel Miles",
+      "annualFee": "$395",
+      "rewards": {
+        "milesEveryPurchase": "2X miles per dollar on everyday purchases",
+        "milesFlightsTravel": "5X miles per dollar on flights and vacation rentals through Capital One Travel",
+        "milesHotelsRentalCarsTravel": "10X miles per dollar on hotels and rental cars booked through Capital One Travel"
+      },
+      "bonusOffer": "Earn bonus miles after meeting spending requirement in first months",
+      "notes": "Premium travel card with elevated reward rates"
+    }
+  ]
+}
