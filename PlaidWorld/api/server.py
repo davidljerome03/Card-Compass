@@ -165,7 +165,7 @@ def get_cards():
                     "bank": "Capital One", 
                     "last4": account['mask'],
                     "type": str(account['subtype']).capitalize(),
-                    "rewards": "Mock Rewards Data"
+                    "rewards": ""
                 })
         
         return {"cards": credit_cards, "mock": False}

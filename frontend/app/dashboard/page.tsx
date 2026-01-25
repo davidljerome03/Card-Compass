@@ -15,6 +15,29 @@ export default function DashboardPage() {
     const [cards, setCards] = useState<CreditCardType[]>([]);
     const [isPlaidConnected, setIsPlaidConnected] = useState(false);
 
+    // Helper to determine card style based on name
+    const getCardStyle = (name: string) => {
+        const n = name.toLowerCase();
+        if (n.includes('savor')) {
+            // Orange/Red for Savor
+            return 'linear-gradient(135deg, #ff9966 0%, #ff5e62 100%)';
+        } else if (n.includes('venture x')) {
+            // Premium Dark Blue/Slate for Venture X
+            return 'linear-gradient(135deg, #2b5876 0%, #4e4376 100%)';
+        } else if (n.includes('venture')) {
+            // Blue/Teal for Venture
+            return 'linear-gradient(135deg, #00c6ff 0%, #0072ff 100%)';
+        } else if (n.includes('quicksilver')) {
+            // Silver/Grey for Quicksilver
+            return 'linear-gradient(135deg, #bdc3c7 0%, #2c3e50 100%)';
+        } else if (n.includes('platinum')) {
+            // Platinum/Metallic
+            return 'linear-gradient(135deg, #E0E0E0 0%, #BDBDBD 100%)';
+        }
+        // Fallback Blue-ish
+        return 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)';
+    };
+
     // Function to fetch cards from backend
     const fetchCards = async () => {
         try {
@@ -25,8 +48,8 @@ export default function DashboardPage() {
             if (!data.mock && data.cards && data.cards.length > 0) {
                 setCards(data.cards.map((c: any) => ({
                     ...c,
-                    // Assign a gradient based on some hash or type since Plaid doesn't give colors
-                    imageColor: c.type === 'Type' ? 'linear-gradient(135deg, #00416a 0%, #e4e5e6 100%)' : 'linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%)'
+                    // Assign a gradient based on card name
+                    imageColor: getCardStyle(c.name)
                 })));
                 setIsPlaidConnected(true);
             }
