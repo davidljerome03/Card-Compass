@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { CreditCard, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import styles from './page.module.css';
 
 export default function LoginPage() {
@@ -12,7 +12,6 @@ export default function LoginPage() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate login delay
     setTimeout(() => {
       router.push('/dashboard');
     }, 1500);
@@ -27,13 +26,9 @@ export default function LoginPage() {
       </div>
 
       <div className={styles.glassPanel}>
+        {/* Header / Logo */}
         <div className={styles.header}>
-          <div className={styles.iconBox}>
-            <CreditCard color="white" size={32} />
-          </div>
-          <h1 className={styles.title}>
-            Card <span className="text-gradient">Compass</span>
-          </h1>
+          <img src="/logo.png" alt="Card Compass" className={styles.logo} />
           <p className={styles.subtitle}>
             Maximize your rewards with AI-powered recommendations.
           </p>
@@ -49,6 +44,7 @@ export default function LoginPage() {
               defaultValue="demo@example.com"
             />
           </div>
+
           <div className={styles.inputGroup}>
             <label className={styles.label}>Password</label>
             <input
@@ -78,7 +74,9 @@ export default function LoginPage() {
         </form>
 
         <div className={styles.footer}>
-          <p>Don&apos;t have an account? <span className={styles.link}>Sign up</span></p>
+          <p>
+            Don&apos;t have an account? <span className={styles.link}>Sign up</span>
+          </p>
         </div>
       </div>
     </main>
