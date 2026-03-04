@@ -7,7 +7,6 @@ I've completely rebuilt the frontend for your Card Compass application. The new 
 ## What's Been Implemented
 
 ### 1. **Authentication System** ✅
-- Firebase Auth integration with Google Sign-In
 - Auth context provider for state management
 - Protected routes (dashboard only shows when logged in)
 - Sign out functionality
@@ -20,8 +19,7 @@ I've completely rebuilt the frontend for your Card Compass application. The new 
 ### 3. **Credit Card Display** ✅
 - Beautiful card grid layout showing all user cards
 - Displays card name, last 4 digits, type, and rewards information
-- Mock data included for development (6 Capital One cards)
-- Ready to fetch real data from your backend
+- Fetches real data from your backend
 
 ### 4. **Location Tracking** ✅
 - Real-time geolocation tracking
@@ -33,7 +31,6 @@ I've completely rebuilt the frontend for your Card Compass application. The new 
 - Recommendation component that shows which card to use
 - Displays confidence score, reason, and estimated rewards
 - API route ready to connect to your orchestrator backend
-- Mock recommendation included for development
 
 ### 6. **Dashboard UI** ✅
 - Clean, modern design with Tailwind CSS
@@ -46,25 +43,18 @@ I've completely rebuilt the frontend for your Card Compass application. The new 
 ```
 frontend/
 ├── app/
-│   ├── api/
-│   │   ├── cards/route.ts          # Fetch credit cards
-│   │   ├── plaid/
-│   │   │   ├── link/route.ts       # Create Plaid link token
-│   │   │   └── exchange/route.ts   # Exchange Plaid token
-│   │   └── recommendation/route.ts # Get card recommendations
-│   ├── components/
-│   │   ├── Dashboard.tsx            # Main dashboard
-│   │   ├── PlaidLink.tsx           # Plaid connection component
-│   │   ├── CreditCardList.tsx      # Display cards
-│   │   ├── LocationTracker.tsx     # Location tracking
-│   │   └── CardRecommendation.tsx  # Show recommendations
-│   ├── contexts/
-│   │   └── AuthContext.tsx         # Auth state management
+│   ├── dashboard/
+│   │   └── page.tsx                # Main dashboard view
 │   ├── types/
 │   │   └── index.ts                # TypeScript types
-│   ├── firebase.ts                 # Firebase config
-│   ├── layout.tsx                  # Root layout with AuthProvider
-│   └── page.tsx                    # Main page (login/dashboard)
+│   ├── layout.tsx                  # Root layout
+│   └── page.tsx                    # Mock Login page
+├── components/
+│   ├── PlaidLink.tsx               # Plaid connection component calling :8000
+│   ├── CreditCardList.tsx          # Display cards component
+│   └── LocationTracker.tsx         # Location tracking & WebSocket recommendations
+├── next.config.ts                  # Next.js config
+└── next-env.d.ts
 ```
 
 ## Next Steps
@@ -81,13 +71,6 @@ This will install the new `react-plaid-link` package.
 Create a `.env.local` file in the `frontend` directory:
 
 ```env
-NEXT_PUBLIC_FIREBASE_API_KEY=your_key
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_domain
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_bucket
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
-
 # Optional: For address lookup
 NEXT_PUBLIC_OPENCAGE_API_KEY=your_key
 
@@ -98,24 +81,19 @@ PLAID_BACKEND_URL=http://localhost:8000
 
 ### 3. **Backend Integration**
 
-The frontend API routes currently return mock data. You need to:
+The frontend components currently interact directly with your Python backend at `http://localhost:8000`.
 
 #### a) **Plaid Backend Endpoints**
-Update these files to connect to your actual Plaid backend:
-- `app/api/plaid/link/route.ts` - Should call your backend to create a Plaid link token
-- `app/api/plaid/exchange/route.ts` - Should exchange the token and store access tokens
+The `PlaidLink.tsx` component calls your backend to create a Plaid link token and exchange the public token.
+- Make sure your FastAPI/Python backend handles `/api/create_link_token` and `/api/exchange_public_token`.
 
 #### b) **Cards Endpoint**
-Update `app/api/cards/route.ts` to:
-- Fetch cards from your database (after Plaid connection)
-- Filter for Capital One cards only
-- Include rewards information
+The `dashboard/page.tsx` fetches cards from your database via `/api/cards`.
+- Ensure your backend returns the user's fetched Capital One cards.
 
 #### c) **Recommendation Endpoint**
-Update `app/api/recommendation/route.ts` to:
-- Call your orchestrator agent with location data
-- Return the AI-powered recommendation
-- Include confidence scores and reasoning
+The `LocationTracker.tsx` component connects to your backend via WebSockets at `ws://localhost:8000/ws/location`.
+- It expects the orchestrator agent to stream AI-powered recommendations (`RECOMMENDATION_EVENT` or `NO_REWARD_LOCATION`) directly over the WebSocket.
 
 ### 4. **Backend Agent Integration**
 
@@ -145,19 +123,10 @@ Since you have a Plaid sandbox with 6 Capital One cards:
 ### 6. **Testing**
 
 1. Start the frontend: `npm run dev`
-2. Sign in with Google
+2. Sign in
 3. Test location tracking (grant browser permissions)
 4. Test Plaid connection (will need backend)
 5. Test recommendations (will need backend)
-
-## Current Mock Data
-
-The app currently uses mock data for development:
-
-- **6 Capital One Cards**: Venture Rewards, Savor, Quicksilver, Spark Cash, Venture X, SavorOne
-- **Mock Recommendations**: Returns Savor card for restaurant locations
-
-Replace these with real data once your backend is connected.
 
 ## Design Notes
 
@@ -169,7 +138,7 @@ Replace these with real data once your backend is connected.
 
 ## Key Features
 
-✅ Google Authentication
+✅ Authentication
 ✅ Plaid Link Integration (ready for backend)
 ✅ Credit Card Display
 ✅ Location Tracking

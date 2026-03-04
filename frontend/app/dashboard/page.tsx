@@ -7,7 +7,6 @@ import styles from './page.module.css';
 import CreditCardList from '../../components/CreditCardList';
 import LocationTracker from '../../components/LocationTracker';
 import PlaidLink from '../../components/PlaidLink';
-import { MOCK_CARDS } from '../../data/mockData';
 import { CreditCard as CreditCardType } from '../types';
 
 export default function DashboardPage() {
